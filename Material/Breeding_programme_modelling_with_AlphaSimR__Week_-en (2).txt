@@ -1,0 +1,241 @@
+Hi.
+In this screencast, we will walk you
+through on how we simulate traits in AlphaSimR.
+This vignette, again contains a short introduction,
+this time about traits and
+AlphaSimR code to simulate traits.
+You can read the introduction on your own.
+While we will together
+look at how we technically use AlphaSimR
+AlphaSimR to simulate traits.
+We're going to do that in several steps.
+First, we're going to simulate founding genomes and set
+global simulation parameters. As
+part of specifying global simulation parameters,
+we're also going to define a trait.
+Once we have these two steps done,
+then we can simulate an actual population.
+This will be a base population.
+Then we will look at the genetic values of
+these individuals in the base population.
+We're going to sample some phenotype values
+for these individuals.
+I'm also going to introduce you to
+some quantitative genetics functionality.
+And as an extra step,
+I'm going to point to additional resources on
+traits and quantitative genetics in AlphaSimR,
+Now let's define
+founding genomes and simulation parameters
+as we have done before.
+We will first simulate a population of
+individuals and their genomes.
+To speed up the session again,
+we will only simulate founding genomes for
+50 cattle with only two pairs of chromosomes.
+And this time we're going to be extracting
+ten segregating sites per chromosome. As before,
+we're gonna be ensuring
+that our working environment is clean.
+And also this time, I will set the default plot layer
+to 1:1 plot per image.
+I'm going to load the AlphaSimR package.
+I'm also going to immediately
+highlight running the runMacs function.
+I will set the SP object and
+I'm going to allocate sex at random this time.
+I've highlighted all of this and I'm running all of
+this all at once.
+As you see, this green bar
+is showing that the code is running,
+and particularly the bar is at the moment is at a runMacs,
+which means that runMacs is running.
+We're now stimulating 50 individuals.
+So it's going to take a little bit longer,
+but not, not too long as you've seen it just now.
+So now that we have defined the genomes,
+let's define our trait.
+Written quite a bit of texts here for you.
+And I would like to guide you through that
+because it is important. Now to
+add the trait to the simulation
+via this SimParam object.
+And remember that we're now calling
+that internal object within an object name SP.
+We're going to use the function addTraitA on this object.
+Now you can get information about the trait
+trait A by running the help SimParam
+and going down all the way to addTraitA function here.
+And if I click on it,
+I get information about
+all the arguments that I can specify for this function.
+Now this function simulates
+additive effects for the DNA loci
+that are affecting our traits.
+This function will only define
+genetic component of the trait,
+and we will later have to define
+an environmental component later.
+In the addTraitA function,
+we must first specify
+how many DNA loci effect the trait.
+We do this by specifying
+the n QTL per chromosome argument.
+I would like to emphasise the QTL acronym
+here stands for quantitative trait loci.
+These are those loci,
+those loci that are affecting a quantitative trait.
+As mentioned before,
+these quantitative trait loci will have additive effects.
+What this means is that homozygous individual with
+a homozygous zero genotype will
+have a genetic value of mean plus a zero.
+Then individual with a genotype heterozygous,
+one will have genetic value of mean plus a.
+And individual with homozygous,
+homozygous two will have genetic value mean plus two a.
+This means that the effect of substituting
+ancestral allele with a mutation is additive.
+As just indicated, we also need to specify the mean
+for the trait and we're going to use mean argument.
+And we also have to specify genetic variance
+for the trait using the var argument.
+This variance, variance of genetic values
+will control the spread of
+genetic values around the mean.
+The higher this variances will be, the bigger the spread.
+And finally, we also need to specify
+a distribution from which we will
+sample this additive effects of our QTL.
+Usually we just work with a normal,
+or also called the Gaussian distribution
+for the additive effects.
+And that's the default option,
+so we don't really need to specify it.
+However.
+If we know that we want the simulation where
+some DNA loci are going to have large effects,
+which is not very common with the normal distribution.
+Then we can change that normal distribution
+to a Gamma distribution.
+We can do that by setting the gam argument to true.
+And also then we can control the shape of
+that gamma distribution with the shape argument.
+Alright, so if I look here on the right-hand side,
+you will see the gamma argument
+here and the shape argument.
+Now let's add a trait.
+For example, let's assume that the trait will be
+bodyweight of this cattle that we have simulated.
+And for simplicity, let's assume that this trait is
+only affected by five QTLs per chromosome.
+And that their effects are drawn
+from a normal distribution,
+which is a default setting.
+We will say the trait mean to 500 kilogrammes.
+And we're gonna specify
+genetic variants to 450 kilogrammes.
+And that's actually 450 kilogrammes
+squared because variance has squared units.
+And to achieve, to achieve all of this,
+I'm gonna run these three lines of code.
+Again, I'm using the SP object.
+I'm calling a function add Trait A.
+From that object, I'm
+specifying five QTLs per chromosome.
+I specifying a mean and genetic variance for this trait.
+And when I run this,
+this, this, these three lines of code.
+We don't get any particular,
+we don't get any particular output because that
+information is immediately stored in the SP object.
+And all that information will now be used
+in all downstream
+AlphaSimR populations that we will create.
+To show you this information,
+we can use the SP object and show its trait element.
+So if I highlight this piece of code and I run it,
+you're gonna get quite a bit of
+information about our trait.
+So we see that we have trait A
+which is trait with additive genetic architecture.
+These are the additive effects of our QTLs.
+We also have an intercept.
+We see that we have ten such QTLs.
+And we see that there is of this
+ten, five are on the first chromosome
+and the other five on the second chromosome.
+And these are the actual positions of
+these QTLs on individual chromosomes.
+So the first five on
+the first chromosome and the other
+five on the other chromosome.
+Now we have a name for this trait,
+which is trait one. Now that
+we have simulated the genome,
+set global simulation parameters
+and we have defined the trait as part of that.
+We can now create a base population.
+We're going to again call it as an object, the base pop.
+And we're going to inspect genetic values of
+these individuals in a population.
+Namely, when we create a population with
+a defined trade AlphaSimR,
+automatically calculated genetic values
+for all individuals in the population.
+This is done in such a way that we take the QTL effects
+that we have simulated in the SP object.
+And we're going to apply these QTL effects
+to each QTL genotype.
+And we will then sum
+these effects over the entire genome of each individual.
+So just to show you that I'm now going to
+create this our base population.
+I'm going to just print out
+the summary of this object as before,
+we are used to this values.
+But now you see that we have
+one trait in this base population.
+Now let's look at the genetic values
+of these individuals.
+We can inspect the genetic values of
+individuals in the base pop object by,
+by extracting it's gv element.
+Or we can also use equivalently the gv function.
+They both do the same thing.
+So if I'm trying to do that for,
+for this piece of code here,
+I have base pop @ gv.
+I can get genetic values for all our 50 individuals.
+Or if I just want to see the first ten individuals,
+I can use this  R functionality
+where I'm saying, please extract,
+give me all elements of this vector from one to ten.
+Okay?
+These are
+the genetic values for first ten individuals.
+And I can, instead of using the add GV,
+I can use directly the g function.
+And as you will see, these two
+give me the same, the same output.
+Now, I can start to combine AlphaSimR,
+and R functionality.
+So here I'm going to extract
+genetic values from the base population.
+And then I'm going to plot a histogram of
+the genetics, the genetic values.
+And this histogram is shown here on the y-axis,
+here are the frequency, and on
+the x-axis we have the genetic values of our individuals.
+And we see this is the distribution of genetic values
+of the symbol of the individuals that we have simulated.
+We can also, for example,
+do some calculations on these genetic values.
+For example, I can calculate
+the variance of the genetic values.
+How variable are these genetic values in a population.
+That is actually by definition
+genetic variance in this population.
+And it's our particular case,
+this trait one has genetic variance
+of almost 460 kilogrammes squared.

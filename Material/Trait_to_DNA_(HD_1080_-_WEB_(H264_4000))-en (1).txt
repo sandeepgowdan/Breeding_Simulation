@@ -1,0 +1,171 @@
+What is a trait? Take an individual
+of any species and just look at it.
+Any characteristic you can see or
+measure in these individuals is called a trait.
+For example, the weight,
+height, or colour and so on.
+All the traits we observe are called the
+phenotype of that individual.
+Derived from the Greek pheno,
+meaning to show and type, meaning,
+well, type.
+You might have heard of
+the concept nature versus nurture.
+An individual's phenotype is
+the result of a combination of their genes
+inherited from parents known as
+the genotype and the environment where they live.
+In mathematical terms, we say that the phenotype value of
+individual is a function
+of the genetic value of that individual
+and the environment where the individual lives.
+Variation in environment includes factors such as
+the amount of sunlight an individual receives,
+the amount of nutrients consumed,
+access to water, variation in weather, and so on.
+Variation in the composition of
+an individual's genetic material,
+also known as genotype,
+is determined by the genes inherited from the parents.
+Individuals are made up
+of billions and trillions of cells.
+Inside each of these cells is a nucleus
+with a complete copy of DNA molecules.
+These DNA molecules are
+the blueprint for how individuals are built.
+But what is this DNA?
+DNA is a long molecule that
+looks like a twisted ladder, shown here.
+The rungs of this ladder are
+smaller molecules called nucleotides or bases.
+If we unwind the DNA,
+we can see four bases.
+We have the adenine,
+cytosine, guanine, and thymine.
+Adenine pairs with thymine
+and cytosine pairs with guanine.
+A collection of
+DNA molecules in a cell is called a genome.
+For example, the human genome
+consists of about 3 billion base pairs,
+while the wheat genome consists of
+about 17 billion base pairs.
+These long DNA molecules are packaged into chromosomes.
+In a diploid organism such as us and cattle.
+Each cell carries two copies
+of each of these chromosomes.
+For example, cattle has 30 pairs of chromosomes,
+while maize has 10.
+There are also polyploid species that carry
+more than two copies of each chromosome.
+The sequence of bases in some parts of
+DNA is translated into amino acids,
+which are eventually assembled into
+proteins for bodily functions such as growth.
+Variation at or around these translated sites
+drive genetic differences between individuals.
+If you look at one base pair, for example,
+this one, we can see
+four possible combinations of the bases.
+TA, GC, AT, and CG.
+We call these four possible combinations as alleles.
+In this course, we will focus on DNA sites
+with just two alleles.
+For example, this allele and this allele.
+We will encode the alleles with a 0 and a 1,
+where 0 means that this allele is ancestral allele
+and 1 means that this is a derived allele,
+that derived from the ancestral allele due to mutation.
+In AlphaSimR, we will represent
+DNA as a series of zeros and ones in one row tables,
+like the short one here.
+We call these tables haplotypes. A
+diploid individual will have
+two haplotypes for each chromosome.
+The sum of the two haplotype alleles gives
+the genotype in the form of allele dosage.
+The values 0, 1,
+or 2 mean that we have
+no, one or two derived alleles at a site.
+Please pause the video and
+check if this is indeed the case.
+Here is another example where you can pause
+the video and fill in
+the genotype allele dosages yourself.
+How is this DNA variation related to
+phenotype variation between individuals?
+We will use Fisher's
+quantitative genetics framework from 1918.
+We will assume that the phenotype value of
+individual is a sum of the genetic value of individual
+and the environmental effect where the individual lives,
+plus possibly the interaction
+between the genotype and environment.
+Following the same framework,
+we will assume that the genetic value of
+individual is our G is
+the sum of the genetic values from
+the different DNA positions in the genome,
+assuming here that we have
+k such DNA positions in the genome.
+For our modelling purposes,
+we will simulate all these quantities with
+a computational technique
+called random number generation.
+We will use random number generators to simulate the DNA,
+to select which DNA sites affect the trait,
+to simulate genetic effects at these DNA sites
+and finally, to simulate environmental effects,
+possibly in interaction with the genotype.
+For example, let's assume that the trait has a mean
+of 10 and is affected by four DNA sites.
+In these sites, substitution of
+ancestral to derived alleles increases
+genetic value for 1 unit at
+the first position plus 2, at the second position,
+minus 1 at third position plus 1 at the fourth position.
+Now let us generate genome of one individual,
+just one chromosome pair with
+four variable sites that all affect our trait.
+To apply the substitution effects to sites,
+we will multiply them with
+haplotype and genotype allele dosages.
+You might want to pause the video and do this yourself.
+With our two haplotypes and the genotype,
+we get the following site-specific values:
+0, plus 2, minus 1, 0, 1, plus 2,
+minus 1, 1, 1, 4,
+minus 2, and plus 1.
+When we sum these values across the sites,
+we get the following two values
+for the haplotype, the total values,
+that is a 1 for the first haplotype,
+a 3 for the second haplotype.
+And then the genotype is the sum of
+the two haplotypes will have the value 4.
+If you now go back to our equation that the
+phenotype value of individual is,
+the value of the genotype plus the environmental
+effect and potentially interaction
+between the genotype and environment,
+for this individual,
+we now have the mean plus the genetic value.
+And assuming, let's say that the
+individual experiences a positive environment
+that increases the value for 2 units and there
+is no genotype by environment interaction,
+the phenotype value of that individual will be 16 units.
+Please pause the video and calculate
+genetic and phenotype values for the second individual.
+If it experiences an environmental effect
+of minus 1 unit.
+There you go.
+This video gave you
+an understanding of the relationship between
+traits and DNA and how we manage these concepts in AlphaSimR.
+Equipped with these concepts,
+you will be able to start
+simulating DNA and traits in AlphaSimR.
+These knowledge and skills will set
+you up for exploring various topics
+in modelling breeding programmes.

@@ -1,0 +1,231 @@
+Now let's move from genetic values to phenotype values.
+And this is really important because in
+real life we never observe genetic values.
+This, what we're doing here is
+a simulation, we can simulate genetic values.
+And we can inspect genetic values.
+We can work with genetic values.
+But when we're doing next set simulation steps,
+we should usually never work
+with the genetic values we should work with
+the phenotype values because
+that's what is happening in the reality.
+As discussed elsewhere,
+phenotypes of complex traits are
+affected by both genes and the environment.
+To simulate such phenotype values
+in AlphaSimR,  we will have to simulate
+environmental effects in addition to
+the QTL effects that we have simulated above.
+In AlphaSimR, we can simulate phenotype values for
+individuals in a population
+with this set Pheno function.
+When we call this function,
+we either have to specify
+variance of environmental effects.
+And we can do that through the varE argument.
+Or equivalently, we can specify
+the heritability through the h2 argument.
+Heritability is a very important parameter.
+And that parameter is essentially a ratio between
+genetic variance and phenotype variance.
+What I'm going to denote here,
+phenotype variants with v underscore P subscript p.
+And that phenotype variance is in
+effect a function of
+genetic variance and environmental variance.
+So therefore, we can calculate heritability simply as
+taking genetic variance and
+dividing it by the phenotype variance,
+which in, which in fact is
+the sum of the genetic variance and environment,
+environment variance.
+I would like to emphasise that this formula holds under
+the assumption there are
+no interaction between genotype and environment,
+and there are no other sources of phenotype variation.
+But that's suffices for now for our simulations.
+So let us now simulate phenotypes for our population.
+And we're going to assume
+that genetic and environmental variance
+are equal in size.
+So I'm going to be setting VG and VE
+to 450 kilogrammes squared.
+That means that the phenotype variants will
+be 900 kilogrammes squared.
+And if I then calculate the heritability,
+we will see that the heritability is 1/2 or
+0.5. To achieve that.
+I'm now going to run these two lines of code where I'm
+using the set pheno function on
+the base pop population object.
+I'm going to specify heritability of 0.5.
+And I'm going to save the output
+into the same object called base pop,
+which means I'm going to take a base population.
+I'm going to add phenotypes to it.
+And then I'm going to overwrite
+this object. Now, as we did before with the genetic values
+we can now also inspect the phenotype values.
+And we can get the phenotype values
+by looking directly at the element of this object.
+Or we can use the pheno function.
+So if I show you first for the first option,
+we're getting these
+first ten phenotype values for the first ten individuals.
+And I can use the pheno function that gives me
+exactly the same output. As before,
+I can now start combining the AlphaSimR
+and R functionality.
+Here I'm showing you the histogram
+of the phenotype values.
+And here I'm showing you
+the variance of the phenotype values,
+which is the phenotypic variance.
+I would like to emphasise that even though we've
+assumed that phenotype variance is 900,
+because this is a stochastic simulation,
+sometimes the resulting variances will vary.
+We can go one step further and we can start plotting
+one set of values against each other.
+So for example, we know that
+phenotype values are a function of genetic values.
+So we should see some positive correlation
+between these two sets of values.
+So what I'm going to use
+an R function plot so that on the x-axis
+I'm going to plot genetic values
+from our base population and on the y-axis.
+And I'm gonna, I'm gonna plot phenotype values.
+And I'm going to add some nice axes labels.
+Now to show you this plot,
+we see here, just a little bit more. So I
+have phenotype values on
+the y-axis and genetic values on the x-axis.
+And as you can see, this cloud of points showing that
+as I increase genetic value and on average,
+phenotype values also increase, increase.
+Which makes sense because
+phenotype value or a function of genetic value.
+Just to quantify that a little bit,
+I can then use our function core,
+which is going to calculate correlation between
+genetic values and the phenotype values.
+And as we see, we have a positive correlation of about
+0.7 between the variation
+in genetic values and the phenotype values.
+Which means that as phenotypes values,
+as genetic values, increased,
+phenotype values also increase.
+It's important to emphasise that phenotype values are
+a function of the genetic value
+and genetic value of individually is fixed.
+But they also function of the environmental effects
+which are not fixed for individual,
+they can vary over time or space.
+So if we repeat the call of
+set pheno on a particular population,
+we will get different values.
+So if now, if I now again run the set pheno function on
+the base pop with the same heritability
+and extract phenotypes.
+But just for first five individuals.
+If I do it once and if I do it twice,
+you will notice that the phenotypes differ because
+possibly the same individual number
+one experienced different environment.
+So now we've seen how to simulate
+both genetic values and
+phenotype values for a particular trait in
+AlphaSimR. A lot of work in AlphaSimR
+also involves quantitative genetics
+and AlphaSimR provides basic functionality for
+these types of analyses from our simulated populations.
+For example, we can calculate various,
+various means and variance of
+the simulated values as well as
+other more advanced statistics.
+Now I'm going to show you how
+these AlphaSimR functions
+compared to the R functions.
+So as we've seen before,
+we can calculate the variance of genetic values,
+which is the genetic variance
+for our trait. We can do the same
+for the phenotype variance.
+And then if I do a ratio of the two,
+then I am effectively am calculating the heritability,
+which in our case,
+the realised heritability is 0.65
+if I round it up. Now in AlphaSimR,
+we also have some functions that we
+can use to the same effect.
+There is a function of var G that gives us genetic variance,
+var P that gives us phenotype variance.
+So if I repeat the var G, var P,
+and then their ratio, we're
+getting practically the same result.
+In fact, it's not exactly the same.
+And the difference between just running
+the base R functions like var g,
+v of the base pop,
+or var g of base pop.
+There is a slight difference in the sense
+that base R is using,
+is using n minus one as
+a denominator to calculate sample variance.
+While AlphaSimR, var G,
+or Var P functions use n as
+a denominator to calculate population variance.
+In most cases, the difference is not gonna be,
+it's not gonna be large.
+So you don't need to really worry about that.
+Here I have a note where
+I would just like to emphasise again,
+and we've seen this already,
+that even though we have provided a heritability of
+0.5 to our simulation
+when we are calling set pheno call,
+we will quite likely see some variation from
+the actual heritability of
+the simulated phenotypes as you have seen,
+as you have seen above.
+And this is so because AlphaSimR
+simulations are stochastic.
+And what we will tend to see is a difference between the
+specified and the actual heritability will be very small,
+if anything, in large populations.
+However, if you are going to be simulating
+smaller population than the difference
+between the input and
+the output can potentially be quite substantial.
+You can study more about AlphaSimR
+functions for quantitative genetics
+by reading help pages, for example,
+for the mean P, as
+well as the mean G and the var P and the var G functions.
+Finally, I would like to point out
+additional resources on
+traits and quantitative genetics in AlphaSimR.
+There is much more in AlphaSimR in terms of,
+in terms of these two aspects.
+And I really, really
+encourage you to look at the vignette.
+You can access this vignette about the traits
+by running this piece of code.
+The title of the vignette
+is 'Traits in AlphaSimR'
+and has been written by the author
+of the AlphaSimR package, Chris Gaynor.
+And in this vignette, Chris talks about, quite a lot about
+various types of genetic effects that we can simulate.
+For example, such as dominant epistasis
+and genotype by environment interaction.
+I would like to point to that there
+is quite a number of functions that
+deal with these additional effects.
+For example, we have a gv function to extract
+genetic value or bv for breeding values,
+dominance deviation, epistatic effects, etc.
+This concludes this screencast on simulating traits.
+I hope you enjoyed it and see you in the next one.

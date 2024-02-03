@@ -1,0 +1,384 @@
+Hi.
+In this screencast, we will walk you
+through on how we simulate DNA with AlphaSimR.
+This vignette in front of
+us contains a short introduction
+about DNA and AlphaSimR code to simulate DNA.
+You can read the introduction on your own.
+While we work together to look at how we
+technically use AlphaSimR to simulate DNA.
+With that, I'm going to jump directly to line 17.
+And I'm going to highlight that we are going to do
+four things in this screencast.
+First, we will simulate some founding genomes.
+Second, we're going to set
+global AlphaSimR simulation parameters.
+Third, we will create a base population of individuals.
+And finally, we will look into
+the genomes of these base population individuals.
+Now let's move to the founding genomes.
+And before we start our work,
+we always suggest that you clean
+your working environment and
+load the AlphaSimR package.
+I'm going to highlight this code on my Mac.
+I'm going to press Command Enter.
+If you're not a Mac user,
+you can press Control Enter.
+Or if you prefer clicking,
+you can click on this green triangle here.
+They all do the same thing.
+So at the time of writing, AlphaSimR
+provides two functions for simulating genomes.
+The first function is quickHaplo,
+which quickly simulate haplotypes by
+randomly sampling a series of zeros and ones.
+The other function is runMacs.
+Which uses the method
+from Chen et al, published in 2009.
+And that simulates haplotypes
+with a species-specific demography.
+Please note that the haplotypes here
+are spanning whole chromosomes.
+So we could call these haplotypes as
+whole chromosome haplotypes or just chromosomes.
+You can read more about the quickHaplo or
+runMacs functions,
+by using the help pages.
+You can get them by running this code.
+So if I highlight help quickHaplo and run it,
+you get information here on
+the right-hand side about the quickHaplo function,
+and equally so for the runMacs function.
+We're going to know in this screencast,
+simulate founding genomes for cattle.
+And we will use the runMacs function.
+And for simplicity and speed,
+we will only simulate five individuals.
+That is, we're going to use the argument nInd equals five.
+We're gonna be simulating two chromosomes,
+so we're going to use the argument
+nChr equals two.
+And we're going to capture only
+four loci per chromosome,
+so we're going to use the argument segSite
+equals four. To be clear,
+cattle do not have two chromosome pairs.
+They have 30 chromosome pairs.
+But for the speed of this session,
+we will simulate only two chromosome pairs.
+Cattle are one of the predefined species in runMacs,
+so you can just use the argument species equals cattle.
+Please write them in upper caps, and that's a string,
+so we need to quote the string.
+Since cattle are diploid,
+we will use the default ploidy
+equals two arguments. Because that's the default,
+we don't need to specify this argument.
+Specifying ploidy equals two,
+or just using the default means that the runMacs function
+will actually simulate two copies of
+each chromosome of each individual.
+So if I now highlight this and run it,
+we'll see now with this green bar
+that runMacs function is running.
+This function does take a little
+little while to run,
+but because we have only simulated
+five individuals to chromosome,
+I captured four loci.
+It actually doesn't take that long.
+Now that we have saved this
+founding genomes in an object called founder genomes,
+I can highlight and print this object
+and we get a summary of this object.
+So this is an object of a class MapPop.
+We see that we have diploid individuals
+here there are five individuals
+and there are two chromosomes per
+individual for each individual.
+And altogether we have eight loci,
+which is four on each chromosome.
+With that out of the way, we now need to focus on
+sorting out our global simulation parameters.
+So every time after we simulate the founder genomes,
+we must use the SimParam function.
+And that SimParam function will create an object
+that will contain global simulation parameters.
+And this simulation parameters will be common
+to all downstream AlphaSimR work.
+You can read more about the SimParam function and
+its many methods by simply running help SimParam.
+I'm going to show it here.
+So here on the right-hand side you can see this
+is a help page for the SimParam function.
+It has a lot of arguments and a lot
+of methods that you can then explore later.
+We will now create a SimParam object
+and we're going to name it S
+P. And we're going to create
+this SP object based on the founding genomes.
+When we name this such SimParam object as SP,
+then AlphaSimR functions
+recognise it and use it automatically
+without you having to pass it
+as an argument to each function.
+If you will have named this object as say, SP2,
+then you would have to pass the SP2 object
+to every AlphaSimR function, which gets annoying.
+And therefore we recommend that you actually save
+the SimParam object as an SP named object.
+This is what I'm gonna be doing here.
+So we take the founder genomes,
+we pass it to the SimParam function
+specifically it's new method.
+And we're going to save it in the SP object.
+We're simulating cattle here.
+And as we know, cattle have male and female individuals.
+But AlphaSimR does not simulate sex by
+default because it handles
+both animals and plants. And in plants
+we know that sometimes we don't have sex.
+So to actually get sex,
+we will request this through
+the setSexes method of the SimParam.
+But since the simulation parameter has been
+actually stored in the SP object,
+we need to now call SP dollar setSexes.
+We're going setSexes systematically,
+so we're going to use the option yes, underscore sys,
+which will systematically create
+a male and a female in a sequence.
+You can read more about the other sex option,
+sex options with the help SimParam.
+Again, I'd like to
+highlight that we want to look at this setSexes.
+So if I go again at the top of the SimParams,
+the SimParams help page.
+And as I scroll down,
+you see we get to the methods.
+And here is the setSexes method.
+So if I click on it,
+you get help page for this setSexes.
+Now let me run this.
+So that's how our
+founding genomes and the global simulation parameter are set.
+Now let's create an actual population of individuals.
+To do that, we're going to use the newPop function
+and that newPop function is going to
+create a new population.
+A population is just a group of individuals.
+Genomes of these individuals will be created from
+the founding genomes and their sex will be
+allocated according to the SP setSexes specification.
+If we want to know more about the new population,
+just run this help function
+on the newPop and you're gonna get
+information about how to create a new population.
+We're going to name
+this population simply as a base population.
+And we're going to, in R,
+we're going to name this object basePop.
+And that's what I'm gonna do now,
+highlight this and run it.
+Nothing happened in a sense that
+we don't get any particular output.
+But now we have created this basePop object.
+Now let's have a look at what
+the basePop object looks like.
+If I just highlight and run this object,
+I'll get the summary of this object.
+It's saying that that's a class of type Pop.
+Again, these are diploid individuals.
+Based on the founding genomes,
+we got five individuals.
+These individuals have two chromosomes and eight loci.
+And at the moment we don't have any traits.
+We're going to deal with the traits later on.
+So this AlphaSimR populations
+contain lots of information about the individuals.
+For example, you will see information about
+the individual identification that
+is the name of these individuals.
+You will see information about the mother, the father,
+the sex, information about traits,
+any miscellaneous information.
+You will see the number of individuals
+and some genome information.
+And finally, the genomes of these individuals.
+We usually don't recommend
+looking too much into the structure of the objects.
+But if you want to do that,
+you can use the R function str,
+and that's what I'm gonna run now on the basePop.
+You will see quite a lot of verbose output here.
+The details don't really matter,
+but you can see here information about the i
+individual, mother, father, sex.
+There's gonna be a big block about
+the traits that we haven't yet defined.
+There can be some miscellaneous list
+for every single individual,
+there is some information about the numbers.
+And finally the genome of the individual.
+So we have simulated,
+as we know, we have five individuals here.
+And you might look at these entries here
+and you might not recognise that this would be DNA,
+but I'm going to show you actually how to
+look into these values
+just now.
+But before I do that, let me highlight that R objects,
+such as the objects that we just
+created now that is founderGenomes,
+basePop, SP and others.
+They have different structure and
+different content in that structure.
+To work with such different objects
+R uses object-oriented programming.
+Now, there are different styles of
+object-oriented programming in R. In most cases,
+R uses the so-called S3 style,
+where elements of an object or accessed by
+saying object name dollar element.
+Please note the '$' symbol.
+Now, AlphaSimR uses the S4 style for population objects.
+And that means that to get an element of an S4 object,
+you need to write the object name,
+use the @ symbol and then the element name.
+Please note the '@' sign.
+We will now do that with our basePop object.
+And we've seen above that we have the nInd element,
+or sometimes also called slot.
+So I can just say basePop at nInd
+and I get information that we have
+five individuals in this population.
+I can do the same with the individual identifications.
+So we have five individuals.
+These are first five individual we have simulated.
+So their names are from one to
+five as a character string.
+We can also check the sex of individuals.
+We see now the systematic allocation of sex in action.
+We have a male or female,
+or male or female and a male.
+We can inspect how many chromosomes we have.
+We have two, as we said we want two.
+And finally, we can look at the number of loci we have.
+And we see we get a vector of two forms,
+meaning we have four loci on
+first chromosome and four
+loci on the second chromosome.
+Now let's look at the genome of
+this base population individuals.
+There are many ways how to access
+genomes of the individuals in AlphaSimR populations.
+Now we're going to look at the function
+called pullSegSiteHaplo.
+This function will get haplotypes
+and it's going to get haplotypes
+across all segregating sites.
+You can see more about this function
+by looking at its Help page.
+I'm now going to do that for our base population.
+I'm going to run the function on this object.
+So you see that we get an output that is a matrix, right?
+This is a matrix of haplotypes,
+our haplotypes are stored in rows.
+So this is one haplotypes.
+And then the locus alleles are stored in columns.
+And all these columns span across all of the chromosomes.
+Chromosomes that we have simulated.
+Since we simulated a diploid species,
+we get two haplotypes.
+That is two rows per individual.
+So this is one individual.
+You will notice that haplotypes rows are
+named as individual underscore one.
+That is, we get one, underscore one,
+and underscore two for the individual number one
+and it's two haplotypes.
+The loci, that is the columns, are named
+as chromosome underscore locus.
+That is one, underscore one,
+and underscore two for the chromosome
+one and its first and second locus.
+The combination of haplotypes of
+an individual form the genotype of that individual.
+When we present the genotype as a allele dosage,
+that is, the number of
+mutations that an individual carries at each locus.
+We can obtain individual's genotype
+by simply adding up it's haplotypes.
+We're going to show here how to
+do this by combining the AlphaSimR
+AlphaSimR and other R functionality,
+to obtain the genotype of an individual.
+So what I'm going to first do is I'm going to
+extract the haplotypes from the base population.
+I'm saving the haplotypes in the hap object,
+you can see the printout as before,
+but now these values are actually stored in the hap object.
+Now I'm going to try to
+extract haplotype for the first individual.
+So what I'm going to use this,
+I'm going to write the hap object,
+and I'm going to use the square brackets
+to go inside the matrix.
+And I'm only going to say I need
+the first row and I want all the columns,
+so I'm just going to leave the one for the column empty.
+And if I run this, I'm getting
+the first haplotype of the first individual.
+Now I can do the same for
+the second haplotype of the first individual,
+which is in the second row
+so only extracting the second row.
+And if I want to see the genotype of that individual,
+which is the sum of the two haplotypes
+when we work with the biallelic
+loci that we are working with here.
+But we can say hap for the first row plus hap for the second row.
+If I run this, I'm going to get
+the genotype of that individual.
+We can assure ourselves that
+this summation work pretty well.
+If we look here, we have a number two,
+which is the sum of the number one
+here and the number one there.
+Because accessing the genotype of
+individual is a really common operation.
+We also have the pullSegSiteGeno function.
+This function returns one row per individual,
+which is the sum of haplotype rows as shown above.
+And let's run this.
+So we're gonna be running pullSegSiteGeno
+function on the basePop object.
+The output, as we see now,
+are five rows for our five individuals.
+And now we have a allele dosages for
+each individual at every position
+in the genome that we have simulated.
+There are also other functions to access
+genomic information from AlphaSimR population.
+And you can read them about
+these functions from the list of all AlphaSimR
+functions provided by the package.
+So if I say help package equals AlphaSimR in quotes.
+And I run this, I get this overview of
+the AlphaSimR packages and
+other recommendations for this package.
+And if I scroll down,
+you'll see quite a long list of functions.
+And if I focus on P for Pull functions,
+you're going to see there's quite a number of functions
+that enable us to extract the IBD information,
+specific marker, genotype or haplotype, QTLs,
+all segregating sites or
+a specific set of so-called snip markers.
+We should finally point out that up to now,
+all segregating loci that
+we have simulated are assumed
+neutral in the sense that they do not affect any trait.
+We will add causation loci and traits to
+our simulation in another session. See you there.
